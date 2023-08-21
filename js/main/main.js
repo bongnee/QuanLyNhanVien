@@ -5,6 +5,16 @@ var dsnv = new DanhSachNhanVien();
 function queryELE(query) {
     return document.querySelector(query);
 }
+function setLocalStorage() {
+    localStorage.setItem("DSNV", JSON.stringify(dsnv.mangNV));
+}
+function getLocalStorage() {
+    if (localStorage.getItem("DSNV") != null) {
+        dsnv.mangNV = JSON.parse(localStorage.getItem("DSNV"));
+        hienThiDSNV(dsnv.mangNV);
+    }
+}
+getLocalStorage();
 
 
 // thêm nhân viên 
@@ -17,16 +27,17 @@ function themNhanVien() {
     var luong = queryELE("#luongCB").value; 
     var chucVu = queryELE("#chucvu").value; 
     var gioLam = queryELE("#gioLam").value; 
-    
-    var nv = new NhanVien(tk,ten,email,password,ngay,luong,chucVu,gioLam)
+
+    var isValid = true;
+    isValid = Valadation.checkEmpty(tk, "Tài khoản nhân viên không được để trống", "tknv")&& Validation.checkTK(tk, "Tài khoản không được trùng", "tknv", dsnv.mangNV);
+    if (isValid) {
+    var nv = new NhanVien(tk,ten,email,password,ngay,luong,chucVu,gioLam);
     nv.tinhLuong();
     nv.xepLoai();
-    dsnv.themNV();
-
-
+    dsnv.themNV(nv);
     hienThiDSNV(dsnv.mangNV);
-
-    
+    setLocalStorage();
+    }  
 
 }
 document.getElementById("btnThemNV").onclick = themNhanVien;
@@ -34,6 +45,21 @@ document.getElementById("btnThemNV").onclick = themNhanVien;
 function hienThiDSNV(mang) {
     var content = "";
     mang.map(function (nv,index) {
-        
+        var trELE = `<tr>
+        <td>${nv.tk}</td>
+        <td>${nv.hoTen}</td>
+        <td>${nv.email}</td>
+        <td>${nv.ngayLam}</td>
+        <td>${nv.chucVu}</td>
+        <td>${nv.tongLuong}</td>
+        <td>${nv.loaiNhanVien}</td>
+        <td>
+        <button class="btn btn-danger" onclick="xoaNhanVien('${nv.tk}')"   >Xóa</button>
+        <button class="btn btn-info" onclick="hienThiChiTiet('${nv.tk}')"     >Xem</button>
+        </td>
+        </tr> `
+        content +=trELE;
     })
+    
+    queryELE("#tableDanhSach").innerHTML = content;                                                      
 }
