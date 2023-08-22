@@ -1,5 +1,5 @@
 var dsnv = new DanhSachNhanVien();
-
+var validation = new Validation();
 
 
 function queryELE(query) {
@@ -29,22 +29,37 @@ function themNhanVien() {
     var gioLam = queryELE("#gioLam").value; 
 
     var isValid = true;
-    isValid = Valadation.checkEmpty(tk, "Tài khoản nhân viên không được để trống", "tknv")&& Validation.checkTK(tk, "Tài khoản không được trùng", "tknv", dsnv.mangNV);
+
+
+    // tài khoản 
+    isValid &= validation.checkEmpty(tk, "Tài khoản nhân viên không được để trống", "tknv")&& validation.checkTK(tk, "Tài khoản không được trùng", "tknv", dsnv.mangNV);
+    
+
+
     if (isValid) {
     var nv = new NhanVien(tk,ten,email,password,ngay,luong,chucVu,gioLam);
+
     nv.tinhLuong();
+
     nv.xepLoai();
+
     dsnv.themNV(nv);
+
     hienThiDSNV(dsnv.mangNV);
+
     setLocalStorage();
     }  
 
+    queryELE("#btnDong").click();
+
 }
+
 document.getElementById("btnThemNV").onclick = themNhanVien;
 
 function hienThiDSNV(mang) {
     var content = "";
     mang.map(function (nv,index) {
+       
         var trELE = `<tr>
         <td>${nv.tk}</td>
         <td>${nv.hoTen}</td>

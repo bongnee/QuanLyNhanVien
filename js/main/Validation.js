@@ -1,6 +1,6 @@
 function Validation() {
     this.checkEmpty = function (value, message, tknv) {
-        if (value != "") {
+        if (value.trim() != "") {
             document.getElementById(tknv).innerHTML = "";
             document.getElementById(tknv).style.display = "none";
             return true;
@@ -11,15 +11,17 @@ function Validation() {
     }
     this.checkTK = function (value,message,tknv, mangNV) {
         var isExist = mangNV.some(function (nv) {
-            return nv.tk == value
+            return nv.tk == value.trim()
         });
         if(isExist){
             document.getElementById(tknv).innerHTML = message;
             document.getElementById(tknv).style.display = "block";
             return false;
+            
         }
         document.getElementById(tknv).innerHTML = "";
         document.getElementById(tknv).style.display = "none";
         return true;
+        
     }
 }
