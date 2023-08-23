@@ -32,7 +32,19 @@ function themNhanVien() {
 
 
     // tài khoản 
-    isValid &= validation.checkEmpty(tk, "Tài khoản nhân viên không được để trống", "tknv")&& validation.checkTK(tk, "Tài khoản không được trùng", "tknv", dsnv.mangNV);
+    isValid &= validation.checkEmpty(tk, "Tài khoản nhân viên không được để trống", "tbTKNV")&& validation.checkTK(tk, "Tài khoản không được trùng", "tbTKNV", dsnv.mangNV)&& validation.checkTKValue(tk,"Tài khoản không hợp lệ","tbTKNV" );
+
+    // tên nhân viên 
+    isValid &= validation.checkEmpty(ten,"Tên nhân viên không để trống","tbTen")&& validation.checkName(ten,"Tên nhân viên không hợp lệ", "tbTen");
+    // email 
+
+    isValid &= validation.checkEmpty(email,"Email không được để trống", "tbEmail")&& validation.checkEmail(email,"Email không hợp lệ", "tbEmail");
+    // password
+    isValid &= validation.checkEmpty(password,"Password không được để trống", "tbMatKhau")&& validation.checkPassword(password,"Password không hợp lệ", "tbMatKhau");
+
+    // ngày làm 
+    isValid &= validation.checkEmpty(ngay,"Ngày làm không được để trống", "tbMatKhau")&& validation.checkPassword(ngay,"Password không hợp lệ", "tbMatKhau");
+    
     
 
 
@@ -48,9 +60,10 @@ function themNhanVien() {
     hienThiDSNV(dsnv.mangNV);
 
     setLocalStorage();
+    queryELE("#btnDong").click();
     }  
 
-    queryELE("#btnDong").click();
+  
 
 }
 
