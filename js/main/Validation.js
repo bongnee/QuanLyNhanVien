@@ -105,5 +105,57 @@ function Validation() {
         return false;
 
     }
+    // lương 
+    this.checkLuong = function (value, message, tknv) {
+        var pattern = /^[0-9]+$/; 
+
+        if (value.match(pattern)&& value >= 1000000 && value <= 20000000) {
+            
+            document.getElementById(tknv).innerHTML = "";
+            document.getElementById(tknv).style.display = "none";
+            return true;
+        }
+       
+        document.getElementById(tknv).innerHTML = message;
+        document.getElementById(tknv).style.display = "block";
+        return false;
+
+    }
+    // chức vụ 
+    this.checkChucVu = function (id,value, message, tknv) {
+        var index = document.getElementById(id).selectedIndex;
+
+        if (index != 0) {
+            document.getElementById(tknv).innerHTML = "";
+            document.getElementById(tknv).style.display = "none";
+            return true;
+                 
+        }
+        document.getElementById(tknv).innerHTML = message;
+        document.getElementById(tknv).style.display = "block";
+        return false;  
+      
+       
+        
+    }
+    // giờ làm 
+    this.checkGioLam = function (value, message, tknv) {
+        var pattern = /^[0-9]+$/; 
+
+        if (value.match(pattern)&& value >= 80 && value <= 200) {
+            
+            document.getElementById(tknv).innerHTML = "";
+            document.getElementById(tknv).style.display = "none";
+            return true;
+        }
+       
+        document.getElementById(tknv).innerHTML = message;
+        document.getElementById(tknv).style.display = "block";
+        return false;
+
+    }
+
+
+
 
 }
