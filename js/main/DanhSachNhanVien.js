@@ -28,7 +28,7 @@ function DanhSachNhanVien() {
 }
 
 
-DanhSachNhanVien.prototype.searchByloaiNhanVien = function (tuTK) {
+DanhSachNhanVien.prototype.searchByName = function (tuTK) {
     var mangTK = [];
     var tuTKXoaSpace = tuTK.toLowerCase().replace(/\s/g, "");
     this.mangNV.map(function (nv) {
@@ -36,6 +36,7 @@ DanhSachNhanVien.prototype.searchByloaiNhanVien = function (tuTK) {
         if (indexTK > -1) {
             mangTK.push(nv);
         }
-        return mangTK;
+       
     })
+    return mangTK;
 }

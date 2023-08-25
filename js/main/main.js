@@ -150,9 +150,9 @@ function capNhatNV() {
 queryELE("#btnCapNhat").onclick = capNhatNV;
 
 
-queryELE("#btnTimNV").onclick = function () {
+queryELE("#btnTimNV").onclick = function(){
     var tuTK = queryELE("#searchName").value;
-    var mangTK = dsnv.searchByloaiNhanVien(tuTK);
+    var mangTK = dsnv.searchByName(tuTK);
     hienThiDSNV(mangTK);
 }
 queryELE("#searchName").onkeydown = function(){
