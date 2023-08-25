@@ -17,4 +17,25 @@ function DanhSachNhanVien() {
         });
         return nvFind;
     }
+    this.capNhat = function (nvUpdate) {
+        var indexUpdate = this.mangNV.findIndex(function (nv) {
+            return nv.tk == nvUpdate.tk
+        });
+        if (indexUpdate > -1) {
+            this.mangNV[indexUpdate] = nvUpdate;
+        }
+    }
+}
+
+
+DanhSachNhanVien.prototype.searchByloaiNhanVien = function (tuTK) {
+    var mangTK = [];
+    var tuTKXoaSpace = tuTK.toLowerCase().replace(/\s/g, "");
+    this.mangNV.map(function (nv) {
+        var indexTK = nv.loaiNhanVien.toLowerCase().replace(/\s/g, "").indexOf(tuTKXoaSpace);
+        if (indexTK > -1) {
+            mangTK.push(nv);
+        }
+        return mangTK;
+    })
 }

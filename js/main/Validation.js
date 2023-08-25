@@ -122,10 +122,10 @@ function Validation() {
 
     }
     // chức vụ 
-    this.checkChucVu = function (id,value, message, tknv) {
-        var index = document.getElementById(id).selectedIndex;
+    this.checkChucVu = function (value, message, tknv) {
+        // var index = document.getElementById(value).selectedIndex;
 
-        if (index != 0) {
+        if (value != 0) {
             document.getElementById(tknv).innerHTML = "";
             document.getElementById(tknv).style.display = "none";
             return true;

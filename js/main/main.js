@@ -27,6 +27,7 @@ function themNhanVien() {
     var luong = queryELE("#luongCB").value;
     var chucVu = queryELE("#chucvu").value;
     var gioLam = queryELE("#gioLam").value;
+    
 
     var isValid = true;
 
@@ -43,12 +44,13 @@ function themNhanVien() {
     isValid &= validation.checkEmpty(password, "Password không được để trống", "tbMatKhau") && validation.checkPassword(password, "Password không hợp lệ", "tbMatKhau");
 
     // ngày làm 
-    isValid &= validation.checkEmpty(ngay, "Ngày làm không được để trống", "tbNgay") && validation.checkPassword(ngay, "Ngày làm không hợp lệ", "tbNgay");
+    isValid &= validation.checkEmpty(ngay, "Ngày làm không được để trống", "tbNgay")&& validation.checkDay(ngay, "Ngày làm không hợp lệ", "tbNgay") ;
     // lương 
     isValid &= validation.checkEmpty(luong, "Lương không được để trống", "tbLuongCB") && validation.checkLuong(luong, "Lương không hợp lệ", "tbLuongCB");
 
     // Chức vụ 
-    isValid &= validation.checkChucVu(chucVu, "Vui lòng chọn chức vụ","tbChucVu");
+    var chucVuIndex = queryELE("#chucvu").selectedIndex;
+    isValid &= validation.checkChucVu(chucVuIndex, "Vui lòng chọn chức vụ","tbChucVu");
     // giờ làm 
     isValid &= validation.checkEmpty(gioLam, "Giờ làm không được để trống", "tbGiolam") && validation.checkGioLam(gioLam, "Giờ làm không hợp lệ", "tbGiolam");
 
@@ -95,6 +97,7 @@ function hienThiDSNV(mang) {
         </tr> `
         content += trELE;
     })
+    console.log(content);
 
     queryELE("#tableDanhSach").innerHTML = content;
 }
@@ -117,4 +120,43 @@ function hienThiChiTiet(maXem) {
     queryELE("#chucvu").value = nvFind.chucVu;
     queryELE("#gioLam").value = nvFind.gioLam;
 
+    queryELE("#btnThem").click();
+
+}
+
+function capNhatNV() {
+    var tk = queryELE("#tknv").value;
+    var ten = queryELE("#name").value;
+    var email = queryELE("#email").value;
+    var password = queryELE("#password").value;
+    var ngay = queryELE("#datepicker").value;
+    var luong = queryELE("#luongCB").value;
+    var chucVu = queryELE("#chucvu").value;
+    var gioLam = queryELE("#gioLam").value;
+
+
+    var nvUpdate = new NhanVien(tk, ten, email, password, ngay, luong, chucVu, gioLam);
+    nvUpdate.tinhLuong();
+
+    nvUpdate.xepLoai();
+
+    dsnv.capNhat(nvUpdate);
+    setLocalStorage();
+    getLocalStorage();
+    queryELE("#btnDong").click();
+
+
+}
+queryELE("#btnCapNhat").onclick = capNhatNV;
+
+
+queryELE("#btnTimNV").onclick = function () {
+    var tuTK = queryELE("#searchName").value;
+    var mangTK = dsnv.searchByloaiNhanVien(tuTK);
+    hienThiDSNV(mangTK);
+}
+queryELE("#searchName").onkeydown = function(){
+    var tuTK = queryELE("#searchName").value;
+    var mangTK =  dsnv.searchByName(tuTK);
+    hienThiDSNV(mangTK); 
 }
